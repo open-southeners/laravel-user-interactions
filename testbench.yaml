@@ -1,0 +1,21 @@
+providers:
+  - OpenSoutheners\LaravelUserInteractions\ServiceProvider
+
+migrations:
+  - workbench/database/migrations
+  - database/migrations
+
+seeders:
+  - Workbench\Database\Seeders\DatabaseSeeder
+
+workbench:
+  start: "/"
+  install: true
+  discovers:
+    web: false
+    api: false
+    commands: false
+    views: false
+  build: []
+  assets: []
+  sync: []

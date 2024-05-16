@@ -1,22 +1,31 @@
 <?php
 
-namespace OpenSoutheners\PhpPackage\Tests;
+namespace OpenSoutheners\LaravelUserInteractions\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
-use OpenSoutheners\PhpPackage\ServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orchestra\Testbench\Concerns\WithWorkbench;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use RefreshDatabase;
+    use WithWorkbench;
+
     /**
-     * Get package providers.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return array<int, class-string>
-     */
-    protected function getPackageProviders($app)
+    * Define environment setup.
+    *
+    * @param  \Illuminate\Foundation\Application  $app
+    * @return void
+    */
+    protected function defineEnvironment($app)
     {
-        return [
-            ServiceProvider::class,
-        ];
+        // Setup default database to use sqlite :memory:
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+
+        $app['config']->set('user-interactions', include __DIR__.'/../config/user-interactions.php');
     }
 }

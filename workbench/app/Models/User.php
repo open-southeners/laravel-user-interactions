@@ -11,9 +11,9 @@ class User extends Authenticatable implements Interactable
     use InteractsWith;
 
     /**
-         * The attributes that aren't mass assignable.
-         *
-         * @var array<string>|bool
-         */
-        protected $guarded = [];
+     * The attributes that aren't mass assignable.
+     *
+     * @var array<string>|bool
+     */
+    protected $guarded = [];
 }

@@ -32,6 +32,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->app->bind('user.interaction', fn() => new Interaction());
+        $this->app->bind('user.interaction', fn () => new Interaction());
     }
 }

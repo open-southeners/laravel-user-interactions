@@ -11,11 +11,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     use WithWorkbench;
 
     /**
-    * Define environment setup.
-    *
-    * @param  \Illuminate\Foundation\Application  $app
-    * @return void
-    */
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
     protected function defineEnvironment($app)
     {
         // Setup default database to use sqlite :memory:

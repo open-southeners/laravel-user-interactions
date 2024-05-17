@@ -5,9 +5,9 @@ namespace OpenSoutheners\LaravelUserInteractions\Support;
 use BackedEnum;
 use Exception;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use OpenSoutheners\LaravelUserInteractions\Contracts\Interactable;
 use OpenSoutheners\LaravelUserInteractions\UserInteraction;
-use Illuminate\Support\Str;
 
 final class Interaction
 {

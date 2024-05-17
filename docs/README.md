@@ -1,5 +1,7 @@
 ---
-description: Installation of this package to your Laravel application
+description: >-
+  Integrate user interactions to your Laravel application like: followers,
+  subscribers, likes, participants, etc
 ---
 
 # Getting started

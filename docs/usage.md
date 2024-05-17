@@ -14,6 +14,8 @@ This package offers any of the entities previously configured (check [.](./ "men
 
 If you ever feel this is not enough you are completely free to [send a PR](https://github.com/open-southeners/laravel-user-interactions/compare) to our repository **or even better extend the enum** and change it from the config file.
 
+### Save interactions
+
 Knowing this you can simply use this package from the enum in the following way:
 
 <pre class="language-php"><code class="lang-php">use OpenSoutheners\LaravelUserInteractions\Support\Facades\Interaction;
@@ -110,6 +112,26 @@ Interaction::hasFollowed(causer: User::find(2), subject: User::find(1));
 // but you can also do this
 Interaction::hasBeenFollowed(causer: User::find(1), subject: User::find(2));
 ```
+
+### Query interactions
+
+You can save and check for interactions but what about querying? We got you covered:
+
+<pre class="language-php"><code class="lang-php"><strong>use OpenSoutheners\LaravelUserInteractions\Support\Facades\Interaction;
+</strong>use OpenSoutheners\LaravelUserInteractions\UserInteractionType;
+<strong>
+</strong><strong>// Query all followers of a user
+</strong><strong>Interaction::to(User::find(1))->doing(UserInteractionType::Follow)->get();
+</strong><strong>
+</strong><strong>// Remove all followers of a user
+</strong>Interaction::to(User::find(1))->doing(UserInteractionType::Follow)->delete();
+<strong>
+</strong><strong>// Query all follows of a user
+</strong>Interaction::from(User::find(1))->doing(UserInteractionType::Follow)->get();
+
+// Remove all follows of a user
+Interaction::from(User::find(1))->doing(UserInteractionType::Follow)->delete();
+</code></pre>
 
 Now is up to you to put all this in practice!
 

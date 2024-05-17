@@ -17,20 +17,34 @@ class UserInteraction extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = ['interaction_type'];
 
+    /**
+     * Get the table associated with the model.
+     *
+     * @return string
+     */
     public function getTable()
     {
-        return config('user-interactions.table_name');
+        /** @var string $configuredTable */
+        $configuredTable = config('user-interactions.table_name');
+
+        return $configuredTable;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<\Illuminate\Database\Eloquent\Model, self>
+     */
     public function causer(): MorphTo
     {
         return $this->morphTo();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<\Illuminate\Database\Eloquent\Model, self>
+     */
     public function subject(): MorphTo
     {
         return $this->morphTo();

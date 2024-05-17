@@ -4,7 +4,7 @@ namespace OpenSoutheners\LaravelUserInteractions\Support;
 
 use BackedEnum;
 use Exception;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use OpenSoutheners\LaravelUserInteractions\Contracts\Interactable;
 use OpenSoutheners\LaravelUserInteractions\UserInteraction;
@@ -19,6 +19,9 @@ final class Interaction
 
     protected bool $removingWhenExists = false;
 
+    /**
+     * Action caused from entity (model).
+     */
     public function from(Interactable $causer): self
     {
         $this->causer = $causer;
@@ -26,6 +29,17 @@ final class Interaction
         return $this;
     }
 
+    /**
+     * Action caused from entity (alias of from).
+     */
+    public function causer(Interactable $causer): self
+    {
+        return $this->from($causer);
+    }
+
+    /**
+     * Action subjected to entity (model).
+     */
     public function to(Interactable $subject): self
     {
         $this->subject = $subject;
@@ -34,9 +48,17 @@ final class Interaction
     }
 
     /**
+     * Action subjected to entity (alias of to).
+     */
+    public function subject(Interactable $subject): self
+    {
+        return $this->to($subject);
+    }
+
+    /**
      * Toggle interaction when one already exists.
      */
-    public function toggle($allowingRemoval = true): self
+    public function toggle(bool $allowingRemoval = true): self
     {
         $this->removingWhenExists = $allowingRemoval;
 
@@ -45,6 +67,8 @@ final class Interaction
 
     /**
      * Query if causer is doing the specified interaction to subject.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder<\OpenSoutheners\LaravelUserInteractions\UserInteraction>
      */
     public function doing(BackedEnum $interaction): Builder
     {
@@ -117,9 +141,17 @@ final class Interaction
         return $this->did($interaction);
     }
 
+    /**
+     * @param  array<\OpenSoutheners\LaravelUserInteractions\Contracts\Interactable>  $arguments
+     * @return mixed
+     */
     public function __call(string $method, array $arguments)
     {
         $interactionTypesEnum = config('user-interactions.interaction_types');
+
+        if (! is_subclass_of($interactionTypesEnum, BackedEnum::class)) {
+            throw new Exception('Interaction types config parameter should be a valid PHP enum.');
+        }
 
         [$action, $interaction] = match (true) {
             Str::startsWith($method, 'hasBeen') => ['has', Str::of($method)->replace('hasBeen', '')->lower()->value()],

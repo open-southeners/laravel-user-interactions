@@ -4,9 +4,13 @@ Add some user interactions to your Laravel applications like followers, likes, s
 
 ## Getting started
 
-```
+```bash
 composer require open-southeners/laravel-user-interactions
 ```
+
+## Documentation
+
+To learn how to use everything you should check the [official documentation](https://docs.opensoutheners.com/laravel-user-interactions).
 
 ## Partners
 

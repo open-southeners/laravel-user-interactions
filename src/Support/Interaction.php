@@ -170,7 +170,7 @@ final class Interaction
             ?? $arguments[$this->causer && count($arguments) === 1 ? 0 : 1]
             ?? null;
 
-        if (! $this->causer && count($arguments) > 1 && $causer) {
+        if (count($arguments) > 1 && $causer) {
             $this->from($causer);
         }
 

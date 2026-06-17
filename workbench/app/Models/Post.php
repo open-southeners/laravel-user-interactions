@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use OpenSoutheners\LaravelUserInteractions\Concerns\InteractsWith;
 use OpenSoutheners\LaravelUserInteractions\Contracts\Interactable;
 
+/**
+ * @implements \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<self>
+ */
 class Post extends Model implements Interactable
 {
     use InteractsWith;
@@ -13,7 +16,7 @@ class Post extends Model implements Interactable
     /**
      * The attributes that aren't mass assignable.
      *
-     * @var array<string>|bool
+     * @var array<string>
      */
     protected $guarded = [];
 }

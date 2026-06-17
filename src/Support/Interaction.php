@@ -5,14 +5,21 @@ namespace OpenSoutheners\LaravelUserInteractions\Support;
 use BackedEnum;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use OpenSoutheners\LaravelUserInteractions\Contracts\Interactable;
 use OpenSoutheners\LaravelUserInteractions\UserInteraction;
 
 final class Interaction
 {
+    /**
+     * @var \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>|null
+     */
     protected ?Interactable $causer = null;
 
+    /**
+     * @var \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>|null
+     */
     protected ?Interactable $subject = null;
 
     protected ?BackedEnum $type = null;
@@ -21,6 +28,8 @@ final class Interaction
 
     /**
      * Action caused from entity (model).
+     *
+     * @param  \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>  $causer
      */
     public function from(Interactable $causer): self
     {
@@ -31,6 +40,8 @@ final class Interaction
 
     /**
      * Action caused from entity (alias of from).
+     *
+     * @param  \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>  $causer
      */
     public function causer(Interactable $causer): self
     {
@@ -39,6 +50,8 @@ final class Interaction
 
     /**
      * Action subjected to entity (model).
+     *
+     * @param  \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>  $subject
      */
     public function to(Interactable $subject): self
     {
@@ -49,6 +62,8 @@ final class Interaction
 
     /**
      * Action subjected to entity (alias of to).
+     *
+     * @param  \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>  $subject
      */
     public function subject(Interactable $subject): self
     {
@@ -112,8 +127,8 @@ final class Interaction
 
         $userInteraction = new UserInteraction(['interaction_type' => $interaction]);
 
-        $userInteraction->causer()->associate($this->causer);
-        $userInteraction->subject()->associate($this->subject);
+        $userInteraction->causer()->associate($this->modelForAssociation($this->causer));
+        $userInteraction->subject()->associate($this->modelForAssociation($this->subject));
 
         $userInteraction->save();
 
@@ -142,14 +157,14 @@ final class Interaction
     }
 
     /**
-     * @param  array<\OpenSoutheners\LaravelUserInteractions\Contracts\Interactable>  $arguments
+     * @param  array<\OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>>  $arguments
      * @return mixed
      */
     public function __call(string $method, array $arguments)
     {
         $interactionTypesEnum = config('user-interactions.interaction_types');
 
-        if (! is_subclass_of($interactionTypesEnum, BackedEnum::class)) {
+        if (! is_string($interactionTypesEnum) || ! is_subclass_of($interactionTypesEnum, BackedEnum::class)) {
             throw new Exception('Interaction types config parameter should be a valid PHP enum.');
         }
 
@@ -179,5 +194,21 @@ final class Interaction
         }
 
         return call_user_func([$this, $action], $interactionType);
+    }
+
+    /**
+     * @param  \OpenSoutheners\LaravelUserInteractions\Contracts\Interactable<\Illuminate\Database\Eloquent\Model>|null  $interactable
+     */
+    protected function modelForAssociation(?Interactable $interactable): ?Model
+    {
+        if ($interactable === null) {
+            return null;
+        }
+
+        if (! $interactable instanceof Model) {
+            throw new Exception('Interactable should be an Eloquent model.');
+        }
+
+        return $interactable;
     }
 }

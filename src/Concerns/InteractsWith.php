@@ -9,7 +9,7 @@ use OpenSoutheners\LaravelUserInteractions\UserInteractionType;
 trait InteractsWith
 {
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function followers(): MorphMany
     {
@@ -19,7 +19,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function follows(): MorphMany
     {
@@ -29,7 +29,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function likers(): MorphMany
     {
@@ -39,7 +39,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function likes(): MorphMany
     {
@@ -49,7 +49,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function subscribers(): MorphMany
     {
@@ -59,7 +59,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function subscriptions(): MorphMany
     {
@@ -69,7 +69,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function participants(): MorphMany
     {
@@ -79,7 +79,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function participates(): MorphMany
     {
@@ -89,7 +89,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function bookmarkers(): MorphMany
     {
@@ -99,7 +99,7 @@ trait InteractsWith
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\Illuminate\Database\Eloquent\Model>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelUserInteractions\UserInteraction, static>
      */
     public function bookmarks(): MorphMany
     {
